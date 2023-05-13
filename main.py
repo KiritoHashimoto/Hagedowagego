@@ -1,39 +1,31 @@
 from random import randint
 from aiogram import Bot, Dispatcher, executor, types
+from secret import Api
+
+bot = Bot(Api)
+DP = Dispatcher(bot)
+
+real_word = ""
 
 
-bot = Bot("6180157080:AAGOhpj9Buimk_lbRqq6P3EJSYQw_fhywMU")
-dp = Dispatcher(bot)
-
-
-c = ""
-@dp.message_handler(commands=["startik"])
-async def all(message: types.Message):
-    n = (open("words.txt", "r"))
-    f = n.read()
-    word = f.split(",")
-    global c
-    c = word[randint(0, len(word) - 1)]
-    fake = list(c)
-    for i in range(0, len(c), 2):
-        rand = randint(0, len(c)-1)
-        fake[rand] = " _ "
-        print(i)
+@DP.message_handler(commands=["startik"])
+async def create_word(message: types.Message):
+    with open("words.txt", "r") as file_None:
+        global real_word
+        file_read = file_None.read()
+        real_word = file_read.split(",")
+        real_word = real_word[randint(0, len(real_word) - 1)]
+        fake = list(real_word)
+        for i in range(0, len(real_word), 2):
+            random_number_index = randint(0, len(real_word) - 1)
+            fake[random_number_index] = " _ "
     await message.answer("".join(fake))
 
-@dp.message_handler(state='*')
-async def palino(message: types.Message):
-    if message.text == c:
+
+@DP.message_handler(state='*')
+async def gues(message: types.Message):
+    if message.text == real_word:
         await message.answer("GG")
 
 
-
-
-        # answer =  await message.reply('Второй!', reply=False)
-        # if answer == word:
-        #     await message.answer("lol")
-
-
-
-
-executor.start_polling(dp, skip_updates=True)
+executor.start_polling(DP, skip_updates=True)
