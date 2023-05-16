@@ -1,6 +1,6 @@
 from random import randint
 from aiogram import Bot, Dispatcher, executor, types
-from secret import Api
+from Gaben.secret import Api
 import sqlite3
 
 
