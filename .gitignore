@@ -4,3 +4,6 @@ Gaben/secret.py
 Gaben/Kalibrovka !1.py
 Gaben/Nanis.py
 words.txt
+.gitignore
+main.py
+id_chat.json
