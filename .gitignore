@@ -7,3 +7,5 @@ words.txt
 .gitignore
 main.py
 id_chat.json
+Gaben
+Gaben/id_chat.pkl
